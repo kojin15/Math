@@ -18,6 +18,11 @@ data class Vector3(val x: Q, val y: Q, val z: Q) {
     constructor(x: Long, y: Long, z: Long) : this(Q(x), Q(y), Q(z))
     constructor(x: Z, y: Z, z: Z) : this(Q(x), Q(y), Q(z))
 
+    constructor(xy: Vector2, z: Int) : this(xy.x, xy.y, Q(z))
+    constructor(xy: Vector2, z: Long) : this(xy.x, xy.y, Q(z))
+    constructor(xy: Vector2, z: Z) : this(xy.x, xy.y, Q(z))
+    constructor(xy: Vector2, z: Q) : this(xy.x, xy.y, z)
+
     fun inverse(): Vector3 = this.unaryMinus()
 
     operator fun unaryMinus(): Vector3 = Vector3(-this.x, -this.y, -this.z)
