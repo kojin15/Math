@@ -1,9 +1,9 @@
-package kotlin
+package kotlin.scalar
 
 /**
  * @author kojin15.
  */
-class C(val real: Q, val imaginary: Q) {
+data class C(val real: Q, val imaginary: Q) {
 
     constructor(real: Int, imaginary: Int) : this(Q(real), Q(imaginary))
     constructor(real: Int, imaginary: Long): this(Q(real), Q(imaginary))
@@ -20,6 +20,10 @@ class C(val real: Q, val imaginary: Q) {
     constructor(real: Z, imaginary: Long): this(Q(real), Q(imaginary))
     constructor(real: Z, imaginary: Q) : this(Q(real), imaginary)
 
+    constructor(real: Q, imaginary: Int) : this(real, Q(imaginary))
+    constructor(real: Q, imaginary: Long): this(real, Q(imaginary))
+    constructor(real: Q, imaginary: Z): this(real, Q(imaginary))
+
     fun isReal() = imaginary == Q.ZERO
 
     fun isPureImaginary() = real == Q.ZERO
@@ -35,7 +39,8 @@ class C(val real: Q, val imaginary: Q) {
     operator fun plus(other: Long): C = C(this.real + other, this.imaginary)
     operator fun plus(other: Z): C = C(this.real + other, this.imaginary)
     operator fun plus(other: Q): C = C(this.real + other, this.imaginary)
-    operator fun plus(other: C): C = C(this.real + other.real, this.imaginary + other.imaginary)
+    operator fun plus(other: C): C =
+        C(this.real + other.real, this.imaginary + other.imaginary)
 
     operator fun minus(other: Int): C = this + (-other)
     operator fun minus(other: Long): C = this + (-other)
@@ -45,8 +50,10 @@ class C(val real: Q, val imaginary: Q) {
 
     operator fun times(other: Int): C = C(this.real * other, this.imaginary * other)
     operator fun times(other: Long): C = C(this.real * other, this.imaginary * other)
-    operator fun times(other: Z): C = C(this.real * other, this.imaginary * other)
-    operator fun times(other: Q): C = C(this.real * other, this.imaginary * other)
+    operator fun times(other: Z): C =
+        C(this.real * other, this.imaginary * other)
+    operator fun times(other: Q): C =
+        C(this.real * other, this.imaginary * other)
     operator fun times(other: C): C =
         C(
             this.real * other.real - this.imaginary * other.imaginary,

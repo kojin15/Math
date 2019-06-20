@@ -1,4 +1,4 @@
-package kotlin
+package kotlin.scalar
 
 import java.math.BigInteger
 

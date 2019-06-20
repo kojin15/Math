@@ -1,4 +1,4 @@
-package kotlin
+package kotlin.scalar
 
 import java.math.BigInteger
 
@@ -47,7 +47,8 @@ class Q(n: Z, d: Z = Z.ONE) {
     operator fun plus(other: Int): Q = Q(this.n + other + this.d, this.d)
     operator fun plus(other: Long): Q = Q(this.n + other + this.d, this.d)
     operator fun plus(other: BigInteger): Q = Q(this.n + other + this.d, this.d)
-    operator fun plus(other: Q): Q = Q(this.n * other.d + other.n * this.d, this.d * other.d)
+    operator fun plus(other: Q): Q =
+        Q(this.n * other.d + other.n * this.d, this.d * other.d)
 
     operator fun minus(other: Int): Q = this + (-other)
     operator fun minus(other: Long): Q = this + (-other)
@@ -68,6 +69,9 @@ class Q(n: Z, d: Z = Z.ONE) {
     operator fun compareTo(other: Long): Int = (this - other).n.sign
     operator fun compareTo(other: BigInteger): Int = (this - other).n.sign
     operator fun compareTo(other: Q): Int = (this - other).n.sign
+
+    operator fun component1() = n
+    operator fun component2() = d
 
     override fun equals(other: Any?): Boolean = when (other) {
         is Q -> this.n == other.n && this.d == other.d
